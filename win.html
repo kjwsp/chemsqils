@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHEMSQILS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bodywin">
+    <div class="buttonbackhome1">
+        <a href="index.html"><img src="assets/BackHome.png" width="250" height="40"></a>
+    </div>
+    
+    <div class="buttonnextortry">
+        <!-- Tautan next level akan disesuaikan dengan level berikutnya -->
+        <a id="next-level-link"><img src="assets/nextlevel.png" width="250" height="40"></a>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const nextLevel = parseInt(urlParams.get('nextLevel')) || 1;
+        console.log("Next level on win page:", nextLevel);
+        const nextLevelLink = document.getElementById("next-level-link");
+        nextLevelLink.href = `start.html?level=${nextLevel}`;
+        console.log("Next level link:", nextLevelLink.href);
+    </script>
+</body>
+</html>
