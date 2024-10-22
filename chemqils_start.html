@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHEMSQILS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bodystart">
+    <div class="header">
+    <a class="logo"><img src="assets/LOGO.png" width="175" height="25"></a>
+      <div class="header-right">
+        <a href="#about"><img src="assets/PROFILE.png" width="30" height="30"></a>
+      </div>
+    </div>
+    <header>
+      <h3>Chemistry Quiz - Level <span id="level-display">1</span></h3>
+    </header>
+    <div class="footer">
+    <a href="chemsqils_menu.html"><img src="assets/BackHome.png" width="200" height="30"></a>
+    </div>
+
+    <div class="quiz-container">
+      <h2 id="question"></h2> <!-- Soal akan diisi secara dinamis -->
+    </div>
+
+    <div class="timer-container">
+        <h1 id="timer">03:00</h1> <!-- Timer akan dimulai dengan level 1 -->
+    </div>
+
+    <div class="answer-box" id="answer-box">
+        Drop answer here
+    </div>
+
+    <div class="container">
+        <div class="card card-1" id="card1" draggable="true"></div>
+        <div class="card card-2" id="card2" draggable="true"></div>
+        <div class="card card-3" id="card3" draggable="true"></div>
+    </div>
+    <script>
+      // Mengambil query parameter dari URL
+      function getQueryParam(param) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(param);
+      }
+
+      const levelFromUrl = getQueryParam('level') || 1; // Jika tidak ada parameter, default ke level 1
+
+      // Panggil level yang sesuai
+      const levelDisplay = document.getElementById('level-display');
+      levelDisplay.textContent = levelFromUrl;
+
+      // Panggil fungsi startLevel dari file JavaScript game (chemsqils2.js)
+      document.addEventListener('DOMContentLoaded', () => {
+          startLevel(levelFromUrl - 1); // levelFromUrl - 1 karena level 1 indexnya 0
+      });
+    </script>
+
+    <script src="chemqils2.js"></script>
+</body>
+</html>
