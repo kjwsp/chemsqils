@@ -109,10 +109,13 @@ function touchMove(e) {
     e.preventDefault();
     const touch = e.touches[0];
     
-    // Position the card so that its center is at the touch point
-    draggedCard.style.position = 'fixed'; // Changed from 'absolute' to 'fixed'
-    draggedCard.style.left = `${touch.clientX - offsetX - draggedCard.offsetWidth / 2}px`;
-    draggedCard.style.top = `${touch.clientY - offsetY - draggedCard.offsetHeight / 2}px`;
+    const newX = touch.clientX - offsetX - draggedCard.offsetWidth / 2;
+    const newY = touch.clientY - offsetY - draggedCard.offsetHeight / 2;
+    
+    draggedCard.style.position = 'fixed';
+    draggedCard.style.left = '0';
+    draggedCard.style.top = '0';
+    draggedCard.style.transform = `translate(${newX}px, ${newY}px)`;
 }
 
 // function touchEnd(e) {
@@ -129,18 +132,28 @@ function touchMove(e) {
 
 function touchEnd(e) {
     if (!draggedCard) return;
+    e.preventDefault();
     const touch = e.changedTouches[0];
     const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-    if (dropTarget && dropTarget.id === 'answer-box') {
+    
+    if (dropTarget && (dropTarget.id === 'answer-box' || dropTarget.closest('#answer-box'))) {
         handleDrop(draggedCard.id);
     } else {
-        // Reset the card's position and styles
-        draggedCard.style.position = '';
-        draggedCard.style.left = '';
-        draggedCard.style.top = '';
+        resetCardPosition(draggedCard);
     }
+    
     draggedCard.style.zIndex = '';
     draggedCard = null;
+}
+
+function resetCardPosition(card) {
+    card.style.position = '';
+    card.style.left = '';
+    card.style.top = '';
+    card.style.transform = '';
+    
+    // Move the card back to its original container
+    document.querySelector('.container').appendChild(card);
 }
 
 function dragStart(e) {
@@ -152,8 +165,17 @@ function dragStart(e) {
 
 function handleDrop(cardId) {
     const card = document.getElementById(cardId);
+    const answerBox = document.getElementById('answer-box');
+    
+    // Reset positioning styles
+    card.style.position = '';
+    card.style.left = '';
+    card.style.top = '';
+    card.style.transform = '';
+    
     answerBox.innerHTML = '';
     answerBox.appendChild(card);
+    
     checkAnswer(cardId);
 }
 
