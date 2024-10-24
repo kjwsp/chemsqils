@@ -82,8 +82,6 @@ answerBox.addEventListener('drop', (e) => {
 });
 
 // Mobile drag and drop
-let offsetX, offsetY;
-
 cards.forEach(card => {
     card.addEventListener('touchstart', touchStart, {passive: false});
     card.addEventListener('touchmove', touchMove, {passive: false});
@@ -91,93 +89,90 @@ cards.forEach(card => {
 });
 
 let draggedCard = null;
+let startX, startY;
+
+function initDragAndDrop() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('touchstart', touchStart, { passive: false });
+    });
+
+    document.addEventListener('touchmove', touchMove, { passive: false });
+    document.addEventListener('touchend', touchEnd);
+}
 
 function touchStart(e) {
-    draggedCard = e.target;
+    e.preventDefault();
+    draggedCard = e.target.closest('.card');
+    if (!draggedCard) return;
+
     const touch = e.touches[0];
     const rect = draggedCard.getBoundingClientRect();
-    
-    // Calculate offset from the center of the card
-    offsetX = touch.clientX - (rect.left + rect.width / 2);
-    offsetY = touch.clientY - (rect.top + rect.height / 2);
-    
+    startX = touch.clientX - rect.left;
+    startY = touch.clientY - rect.top;
+
+    draggedCard.style.position = 'fixed';
     draggedCard.style.zIndex = 1000;
+
+    updateCardPosition(touch);
 }
 
 function touchMove(e) {
     if (!draggedCard) return;
     e.preventDefault();
-    const touch = e.touches[0];
-    
-    const newX = touch.clientX - offsetX - draggedCard.offsetWidth / 2;
-    const newY = touch.clientY - offsetY - draggedCard.offsetHeight / 2;
-    
-    draggedCard.style.position = 'fixed';
-    draggedCard.style.left = '0';
-    draggedCard.style.top = '0';
-    draggedCard.style.transform = `translate(${newX}px, ${newY}px)`;
+    updateCardPosition(e.touches[0]);
 }
-
-// function touchEnd(e) {
-//     if (!draggedCard) return;
-//     const touch = e.changedTouches[0];
-//     const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-//     if (dropTarget && dropTarget.id === 'answer-box') {
-//         handleDrop(draggedCard.id);
-//     } else {
-//         draggedCard.style.position = 'static';
-//     }
-//     draggedCard = null;
-// }
 
 function touchEnd(e) {
     if (!draggedCard) return;
     e.preventDefault();
     const touch = e.changedTouches[0];
-    const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-    
-    if (dropTarget && (dropTarget.id === 'answer-box' || dropTarget.closest('#answer-box'))) {
+    const answerBox = document.getElementById('answer-box');
+    const answerBoxRect = answerBox.getBoundingClientRect();
+    const cardRect = draggedCard.getBoundingClientRect();
+
+    if (
+        cardRect.left < answerBoxRect.right &&
+        cardRect.right > answerBoxRect.left &&
+        cardRect.top < answerBoxRect.bottom &&
+        cardRect.bottom > answerBoxRect.top
+    ) {
         handleDrop(draggedCard.id);
     } else {
         resetCardPosition(draggedCard);
     }
-    
+
     draggedCard.style.zIndex = '';
     draggedCard = null;
+}
+
+function updateCardPosition(touch) {
+    draggedCard.style.left = `${touch.clientX - startX}px`;
+    draggedCard.style.top = `${touch.clientY - startY}px`;
 }
 
 function resetCardPosition(card) {
     card.style.position = '';
     card.style.left = '';
     card.style.top = '';
-    card.style.transform = '';
-    
-    // Move the card back to its original container
-    document.querySelector('.container').appendChild(card);
-}
-
-function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
-    const rect = e.target.getBoundingClientRect();
-    offsetX = e.clientX - (rect.left + rect.width / 2);
-    offsetY = e.clientY - (rect.top + rect.height / 2);
 }
 
 function handleDrop(cardId) {
     const card = document.getElementById(cardId);
     const answerBox = document.getElementById('answer-box');
     
-    // Reset positioning styles
-    card.style.position = '';
-    card.style.left = '';
-    card.style.top = '';
-    card.style.transform = '';
-    
     answerBox.innerHTML = '';
     answerBox.appendChild(card);
     
+    resetCardPosition(card);
     checkAnswer(cardId);
+    
+    // Log for debugging
+    console.log('Dropped card:', cardId);
 }
+
+// Make sure to call this function to initialize the touch events
+initDragAndDrop();
 
 function resetCards() {
     const cardContainer = document.querySelector('.container'); 
