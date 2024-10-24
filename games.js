@@ -82,6 +82,8 @@ answerBox.addEventListener('drop', (e) => {
 });
 
 // Mobile drag and drop
+let offsetX, offsetY;
+
 cards.forEach(card => {
     card.addEventListener('touchstart', touchStart, {passive: false});
     card.addEventListener('touchmove', touchMove, {passive: false});
@@ -92,6 +94,10 @@ let draggedCard = null;
 
 function touchStart(e) {
     draggedCard = e.target;
+    const touch = e.touches[0];
+    const rect = draggedCard.getBoundingClientRect();
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
     draggedCard.style.zIndex = 1000;
 }
 
@@ -100,9 +106,21 @@ function touchMove(e) {
     e.preventDefault();
     const touch = e.touches[0];
     draggedCard.style.position = 'absolute';
-    draggedCard.style.left = `${touch.pageX - draggedCard.offsetWidth / 2}px`;
-    draggedCard.style.top = `${touch.pageY - draggedCard.offsetHeight / 2}px`;
+    draggedCard.style.left = `${touch.clientX - offsetX}px`;
+    draggedCard.style.top = `${touch.clientY - offsetY}px`;
 }
+
+// function touchEnd(e) {
+//     if (!draggedCard) return;
+//     const touch = e.changedTouches[0];
+//     const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+//     if (dropTarget && dropTarget.id === 'answer-box') {
+//         handleDrop(draggedCard.id);
+//     } else {
+//         draggedCard.style.position = 'static';
+//     }
+//     draggedCard = null;
+// }
 
 function touchEnd(e) {
     if (!draggedCard) return;
@@ -111,13 +129,20 @@ function touchEnd(e) {
     if (dropTarget && dropTarget.id === 'answer-box') {
         handleDrop(draggedCard.id);
     } else {
+        // Reset the card's position
         draggedCard.style.position = 'static';
+        draggedCard.style.left = '';
+        draggedCard.style.top = '';
     }
+    draggedCard.style.zIndex = '';
     draggedCard = null;
 }
 
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.id);
+    const rect = e.target.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
 }
 
 function handleDrop(cardId) {
