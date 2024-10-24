@@ -54,83 +54,48 @@ let timerInterval;
 // Timer display
 const timerDisplay = document.getElementById("timer");
 
-// Drag and Drop functionality
+// Drag and Drop functionality using Pointer Events for both desktop and mobile
 const cards = document.querySelectorAll('.card');
 const answerBox = document.getElementById('answer-box');
 
 cards.forEach(card => {
-    card.addEventListener('dragstart', dragStart);
+    card.addEventListener('pointerdown', pointerStart);
 });
 
-function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id); 
-}
-
-answerBox.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    const cardId = e.dataTransfer.getData('text/plain');
-    handleDrop(cardId);
-});
-
-answerBox.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const cardId = e.dataTransfer.getData('text/plain');
-    const card = document.getElementById(cardId);
-    answerBox.innerHTML = '';
-    answerBox.appendChild(card);
-    checkAnswer(cardId);
-});
-
-// Mobile drag and drop
-cards.forEach(card => {
-    card.addEventListener('touchstart', touchStart, {passive: false});
-    card.addEventListener('touchmove', touchMove, {passive: false});
-    card.addEventListener('touchend', touchEnd, {passive: false});
-});
+document.addEventListener('pointermove', pointerMove);
+document.addEventListener('pointerup', pointerEnd);
 
 let draggedCard = null;
 let startX, startY;
 
-function initDragAndDrop() {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.addEventListener('touchstart', touchStart, { passive: false });
-    });
-
-    document.addEventListener('touchmove', touchMove, { passive: false });
-    document.addEventListener('touchend', touchEnd);
-}
-
-function touchStart(e) {
-    e.preventDefault();
+function pointerStart(e) {
+    e.preventDefault(); 
     draggedCard = e.target.closest('.card');
     if (!draggedCard) return;
 
-    const touch = e.touches[0];
     const rect = draggedCard.getBoundingClientRect();
-    startX = touch.clientX - rect.left;
-    startY = touch.clientY - rect.top;
+    startX = e.clientX - rect.left;
+    startY = e.clientY - rect.top;
 
-    draggedCard.style.position = 'fixed';
+    draggedCard.style.position = 'absolute';
     draggedCard.style.zIndex = 1000;
 
-    updateCardPosition(touch);
+    updateCardPosition(e);
 }
 
-function touchMove(e) {
+function pointerMove(e) {
     if (!draggedCard) return;
     e.preventDefault();
-    updateCardPosition(e.touches[0]);
+    updateCardPosition(e);
 }
 
-function touchEnd(e) {
+function pointerEnd(e) {
     if (!draggedCard) return;
-    e.preventDefault();
-    const touch = e.changedTouches[0];
-    const answerBox = document.getElementById('answer-box');
+
     const answerBoxRect = answerBox.getBoundingClientRect();
     const cardRect = draggedCard.getBoundingClientRect();
 
+    // Check if card is within the answer box
     if (
         cardRect.left < answerBoxRect.right &&
         cardRect.right > answerBoxRect.left &&
@@ -142,13 +107,13 @@ function touchEnd(e) {
         resetCardPosition(draggedCard);
     }
 
-    draggedCard.style.zIndex = '';
+    draggedCard.style.zIndex = ''; 
     draggedCard = null;
 }
 
-function updateCardPosition(touch) {
-    draggedCard.style.left = `${touch.clientX - startX}px`;
-    draggedCard.style.top = `${touch.clientY - startY}px`;
+function updateCardPosition(e) {
+    draggedCard.style.left = `${e.clientX - startX}px`;
+    draggedCard.style.top = `${e.clientY - startY}px`;
 }
 
 function resetCardPosition(card) {
@@ -159,25 +124,15 @@ function resetCardPosition(card) {
 
 function handleDrop(cardId) {
     const card = document.getElementById(cardId);
-    const answerBox = document.getElementById('answer-box');
-    
-    answerBox.innerHTML = '';
-    answerBox.appendChild(card);
-    
+    answerBox.innerHTML = ''; 
+    answerBox.appendChild(card); 
     resetCardPosition(card);
     checkAnswer(cardId);
-    
-    // Log for debugging
-    console.log('Dropped card:', cardId);
 }
 
-// Make sure to call this function to initialize the touch events
-initDragAndDrop();
-
+// Reset the cards back to their original position
 function resetCards() {
     const cardContainer = document.querySelector('.container'); 
-    const answerBox = document.getElementById('answer-box'); 
-
     const card1 = document.getElementById("card1");
     const card2 = document.getElementById("card2");
     const card3 = document.getElementById("card3");
@@ -189,7 +144,6 @@ function resetCards() {
     answerBox.innerHTML = 'Drop answer here';
 }
 
-
 function loadQuestion() {
     resetCards(); 
     const questionData = levels[currentLevel].questions[currentQuestionIndex];
@@ -199,7 +153,6 @@ function loadQuestion() {
     document.getElementById("card2").textContent = questionData.answers[1];
     document.getElementById("card3").textContent = questionData.answers[2];
 }
-
 
 function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
@@ -221,34 +174,27 @@ function startTimer() {
 }
 
 function checkAnswer(cardId) {
-    console.log("Checking answer. Current level:", currentLevel, "Current question:", currentQuestionIndex);
     const correctCard = levels[currentLevel].questions[currentQuestionIndex].correctCard;
     if (cardId === correctCard) {
         currentQuestionIndex++;
-        console.log("Correct answer. New question index:", currentQuestionIndex);
 
         if (currentQuestionIndex >= levels[currentLevel].questions.length) {
-            console.log("Level completed. Attempting to move to next level.");
             clearInterval(timerInterval);
             if (currentLevel + 1 < levels.length) {
                 const nextLevel = currentLevel + 2; 
-                console.log("Moving to win page. Next level:", nextLevel);
                 window.location.href = `win.html?nextLevel=${nextLevel}`;
             } else {
-                console.log("Game completed. Moving to end page.");
                 window.location.href = "end.html";
             }
         } else {
             loadQuestion();
         }
     } else {
-        console.log("Incorrect answer.");
         alert("Incorrect! Try again.");
     }
 }
 
 function startLevel(levelIndex) {
-    console.log("Starting level:", levelIndex);
     currentLevel = levelIndex;
     currentQuestionIndex = 0;
     document.getElementById("level-display").textContent = levels[currentLevel].level;
@@ -256,6 +202,7 @@ function startLevel(levelIndex) {
     startTimer();
 }
 
+// Get next level from URL parameters
 const urlParams = new URLSearchParams(window.location.search);
 const nextLevel = urlParams.get('nextLevel');
-startLevel(nextLevel ? parseInt(nextLevel) : 0); 
+startLevel(nextLevel ? parseInt(nextLevel) : 0);

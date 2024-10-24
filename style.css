@@ -442,13 +442,13 @@ max-width: 58%;
   
   .header a {
     float: none;
-    display: block;
+    display: inline-block;
     text-align: left;
   }
     
-    .header-right {
-      float: none;
-    }
+  .header-right {
+      float: right;
+  }
 
   /*start mobile/hp*/
   .bodystart {
@@ -483,7 +483,7 @@ max-width: 58%;
   .h1_end {
     text-align:center;
     color:#FFAD08;
-    font-size:36px;
+    font-size:40px;
   }
 
   .answer-box {
@@ -560,4 +560,15 @@ max-width: 58%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
+
+  div.buttonbackhome2 {
+    margin: 0;
+    position: absolute;
+    
+    left: 20%;
+    bottom: 30px;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
 }

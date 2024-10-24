@@ -11,7 +11,9 @@ ChemsQils adalah virtual lab kimia dasar melalui permainan. Player harus menyela
 7. Jika player berhasil menyelesaikan permainan, tekan tekan layar untuk merayakan kemenangan!
 
 ## !Warning
-Website ini dirancang untuk responsive ke desktop dan mobile, namun jika desktop anda memiliki resolusi yang tinggi atau ukuran yang besar, kemungkinan akan ada error dalam tampilan layar, namun Anda dapat melakukan zoom out agar page tersusun lebih rapih.
+Website ini dirancang untuk responsive ke desktop dan mobile, namun jika desktop anda memiliki resolusi yang tinggi atau ukuran yang besar, kemungkinan akan ada error dalam tampilan layar, namun Anda dapat melakukan zoom out agar page tersusun lebih rapih. Di safari iphone sendiri, drag and drop masih ada kesalahan sehingga belum maksimal. 
+Best device to play : macbook dan android.
+Masih ada juga beberapa error, seperti di desktop, kadang saat salah jawaban, semua kartu menjadi salah, solusi : restart page.
 
 
 made by : Aqila Ataa / 18222120
