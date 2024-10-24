@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: "Montserrat",sans-serif;
   background-attachment: fixed;
-  background-position: center center;
+  background-position: top bottom;
 }
 
 .footer {
