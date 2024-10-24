@@ -68,6 +68,8 @@ function dragStart(e) {
 
 answerBox.addEventListener('dragover', (e) => {
     e.preventDefault();
+    const cardId = e.dataTransfer.getData('text/plain');
+    handleDrop(cardId);
 });
 
 answerBox.addEventListener('drop', (e) => {
@@ -78,6 +80,52 @@ answerBox.addEventListener('drop', (e) => {
     answerBox.appendChild(card);
     checkAnswer(cardId);
 });
+
+// Mobile drag and drop
+cards.forEach(card => {
+    card.addEventListener('touchstart', touchStart, {passive: false});
+    card.addEventListener('touchmove', touchMove, {passive: false});
+    card.addEventListener('touchend', touchEnd, {passive: false});
+});
+
+let draggedCard = null;
+
+function touchStart(e) {
+    draggedCard = e.target;
+    draggedCard.style.zIndex = 1000;
+}
+
+function touchMove(e) {
+    if (!draggedCard) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    draggedCard.style.position = 'absolute';
+    draggedCard.style.left = `${touch.pageX - draggedCard.offsetWidth / 2}px`;
+    draggedCard.style.top = `${touch.pageY - draggedCard.offsetHeight / 2}px`;
+}
+
+function touchEnd(e) {
+    if (!draggedCard) return;
+    const touch = e.changedTouches[0];
+    const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (dropTarget && dropTarget.id === 'answer-box') {
+        handleDrop(draggedCard.id);
+    } else {
+        draggedCard.style.position = 'static';
+    }
+    draggedCard = null;
+}
+
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+}
+
+function handleDrop(cardId) {
+    const card = document.getElementById(cardId);
+    answerBox.innerHTML = '';
+    answerBox.appendChild(card);
+    checkAnswer(cardId);
+}
 
 function resetCards() {
     const cardContainer = document.querySelector('.container'); 

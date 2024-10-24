@@ -3,7 +3,7 @@
 
 body { 
   background-image: url(assets/Menu.png);
-  background-size: 100% auto; 
+  background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
   background-repeat: no-repeat;
   margin: 0;
   font-family: "Montserrat",sans-serif;
@@ -58,70 +58,6 @@ top: 458px;
 }
 
 
-
-/* else Media*/
-@media only screen and (max-height: 770px) 
-{
-body { 
-    background-image: url(assets/Menu2.png);
-    background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
-    background-repeat: no-repeat;
-    margin: 0;
-    font-family: "Montserrat",sans-serif;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: top bottom;
-}
-
-div.buttonstart {
-  position: fixed;
-  left: 143px;
-  top: 125px;
-  
-}
-
-div.buttonload {
-position: fixed;
-
-left: 314px;
-top: 200px;
-}
-
-div.buttonhelp {
-position: fixed;
-left: 200px;
-top: 310px;
-}
-
-.buttonstart img
-{ display: flex;
-height: auto;
-max-width: 65%;
-}
-
-.buttonload img
-{
-height: auto;
-max-width: 65%;
-}
-
-.buttonhelp img
-{
-height: auto;
-max-width: 58%;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 45px;
-  background-color: #405059;
-  color: white;
-}
-}
-
 .header {
   overflow: hidden;
   background-color: #405059;
@@ -154,24 +90,6 @@ max-width: 58%;
   float: right;
 }
 
-
-
-/*tablet atau HP*/
-@media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .header-right {
-    float: none;
-  }
-}
-
-
-
-
 div.buttonbackhome1 {
   position: fixed;
   left: 90px;
@@ -188,6 +106,20 @@ div.buttonnextortry {
   position: fixed;
   left: 1100px;
   top: 375px;
+}
+
+.h3_start{
+  position:fixed;
+  left:30px;
+  top:70px;
+  color:#405059;
+  font-size:36px;
+}
+
+.h1_end {
+  text-align:center;
+  color:#FFAD08;
+  font-size:100px;
 }
 
 .bodyhelp {
@@ -215,6 +147,7 @@ div.buttonnextortry {
   margin: 0;
   font-family: "Montserrat",sans-serif; 
 }
+
 
 .bodywin {
   background-image: url(assets/WIN.png);
@@ -318,4 +251,313 @@ canvas {
   display: block;
   width: 100vw;
   height: 100vh;
+}
+
+/* start media selain macBox 770px*/
+/* else Media*/
+@media only screen and (max-height: 770px)
+{
+body { 
+ 
+    background-image: url(assets/Menu2.png);
+    background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top bottom;
+}
+
+div.buttonstart {
+  position: fixed;
+  left: 143px;
+  top: 125px;
+  
+}
+
+div.buttonload {
+position: fixed;
+
+left: 314px;
+top: 200px;
+}
+
+div.buttonhelp {
+position: fixed;
+left: 200px;
+top: 310px;
+}
+
+.buttonstart img
+{ display: flex;
+height: auto;
+max-width: 65%;
+}
+
+.buttonload img
+{
+height: auto;
+max-width: 65%;
+}
+
+.buttonhelp img
+{
+height: auto;
+max-width: 58%;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  background-color: #405059;
+  color: white;
+}
+
+
+
+  .bodystart {
+    background-image: url(assets/TIMER2.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif; 
+    background-attachment: fixed;
+    background-position: center center;
+  } 
+
+  .quiz-container {
+    width: 615px;
+    height: 80px;
+    position: absolute;
+    background-color: #f0f0f0;
+    right: 100px;
+    top: 150px; 
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  #timer {
+    color: #ffad08;
+    font-size: 24px; /* Ukuran font lebih kecil */
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .timer-container {
+    background-color: #405059;
+    padding: 0px;
+    border-radius: 0px;
+    position: absolute;
+    right: 100px; /* Jarak dari sisi kanan */
+    top: 100px; /* Jarak dari bawah header */
+    width: 100px; /* Ukuran lebar container lebih kecil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  canvas {
+    display: block;
+    width: 90vw;
+    height: 90vh;
+  }
+
+
+  .answer-box {
+    bottom: 220px;
+  }
+  
+  .container {
+    position: fixed;
+    bottom: 50px; /* Jarak dari bawah */
+    right: 100px;  /* Jarak dari kanan */
+    display: flex;
+    gap: 45px;   /* Jarak antar kartu 220px */
+  }
+  
+  div.buttonbackhome2 {
+    bottom: 50px;
+  }
+  
+}
+
+
+
+
+/*tablet atau HP*/
+@media screen and (max-width: 500px) {
+  
+  body { 
+   
+    background-image: url(assets/MenuMobile.png);
+    background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top bottom;
+  }
+  
+  .buttonstart img
+  { display: flex;
+  height: auto;
+  max-width: 40vw;
+  }
+  
+  .buttonload img
+  {
+  height: auto;
+  max-width: 40vw;
+  }
+  
+  .buttonhelp img
+  {
+  height: auto;
+  max-width: 30vw;
+  }
+  
+  
+  div.buttonstart {
+    position: fixed;
+    left: 15vw;
+    top: 45vw;
+    
+  }
+  
+  div.buttonload {
+    position: fixed;  
+    left: 50vw;
+    top: 70vw;
+  }
+  
+  div.buttonhelp {
+    position: fixed;
+    left: 18vw;
+    top: 90vw;
+  }
+  
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+    
+    .header-right {
+      float: none;
+    }
+
+  /*start mobile/hp*/
+  .bodystart {
+    background-image: url(assets/StartMobile.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif; 
+  }
+
+  .timer-container {
+    right: 3vw; /* Jarak dari sisi kanan */
+    top: 130px; /* Jarak dari bawah header */
+    width: 100px; /* Ukuran lebar container lebih kecil */
+  }
+        
+  .quiz-container {
+    width: 350px;
+    height: 50px;
+    right: 3vw;
+    top: 190px; 
+    padding: 15px;
+    font-size: 10px;
+  }
+    
+  .h3_start {
+    position:fixed;
+    left:30px;
+    top:100px;
+  }
+  
+  .h1_end {
+    text-align:center;
+    color:#FFAD08;
+    font-size:36px;
+  }
+
+  .answer-box {
+    width: 110px;
+    height: 110px;
+    margin: 20px auto;
+    top: 235px;
+    right: 128px;
+    font-size: 12px;
+  }
+ 
+  .card {
+    width: 110px;
+    height: 110px;
+  }
+    
+   
+  .container {
+    position: fixed;
+    top: 100vw; /* Jarak dari bawah */
+    right: 3vw;  /* Jarak dari kanan */
+    display: flex;
+    gap: 5px;   /* Jarak antar kartu 220px */
+  }
+
+  .bodyhelp {
+    background-image: url(assets/HelpMobile.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif; 
+  }
+  
+  
+  .bodywin {
+    background-image: url(assets/WIN_mobile.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif; 
+  }
+
+
+  
+  .bodyfail {
+    background-image: url(assets/FailMobile.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif; 
+  }
+
+  div.buttonbackhome1 {
+    position: fixed;
+    left: 60px;
+    top: 275px;
+  }
+
+  div.buttonnextortry {
+    position: fixed;
+    left: 60px;
+    top: 220px;
+  }
+  
+  .bodywin {
+    background-image: url(assets/WinMobile.png);
+  }
+  
+  div.buttonbackhome {
+    margin: 0;
+    position: absolute;
+    
+    left: 20%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 }

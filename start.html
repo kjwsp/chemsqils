@@ -8,13 +8,13 @@
 </head>
 <body class="bodystart">
     <div class="header">
-    <a class="logo"><img src="assets/LOGO.png" width="200" height="33"></a>
+    <a class="logo"><img src="assets/LOGO.png" width="175" height="28"></a>
       <div class="header-right">
-        <a><img src="assets/PROFILE.png" width="44" height="44"></a>
+        <a><img src="assets/PROFILE.png" width="33" height="33"></a>
       </div>
     </div>
     <header>
-      <h3 style ="position:fixed;left:30px;top:70px;color:#405059;font-family:sans-serif;font-size:36px;">Level <span id="level-display">1</span></h3>
+      <h3 class="h3_start">Level <span id="level-display">1</span></h3>
     </header>
     <div class="footer">
     <a href="index.html"><img src="assets/BackHome.png" width="200" height="30"></a>
@@ -48,6 +48,10 @@
         console.log("Level from URL:", levelFromUrl);
         const levelDisplay = document.getElementById('level-display');
         levelDisplay.textContent = levelFromUrl;
+        const cards = document.querySelectorAll('.card');
+        const answerBox = document.getElementById('answer-box');
+        const questionElement = document.getElementById('question');
+        const timerElement = document.getElementById('timer');
         
         startLevel(levelFromUrl - 1);
       });
