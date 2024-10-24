@@ -96,8 +96,11 @@ function touchStart(e) {
     draggedCard = e.target;
     const touch = e.touches[0];
     const rect = draggedCard.getBoundingClientRect();
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
+    
+    // Calculate offset from the center of the card
+    offsetX = touch.clientX - (rect.left + rect.width / 2);
+    offsetY = touch.clientY - (rect.top + rect.height / 2);
+    
     draggedCard.style.zIndex = 1000;
 }
 
@@ -105,9 +108,11 @@ function touchMove(e) {
     if (!draggedCard) return;
     e.preventDefault();
     const touch = e.touches[0];
-    draggedCard.style.position = 'absolute';
-    draggedCard.style.left = `${touch.clientX - offsetX}px`;
-    draggedCard.style.top = `${touch.clientY - offsetY}px`;
+    
+    // Position the card so that its center is at the touch point
+    draggedCard.style.position = 'fixed'; // Changed from 'absolute' to 'fixed'
+    draggedCard.style.left = `${touch.clientX - offsetX - draggedCard.offsetWidth / 2}px`;
+    draggedCard.style.top = `${touch.clientY - offsetY - draggedCard.offsetHeight / 2}px`;
 }
 
 // function touchEnd(e) {
@@ -129,8 +134,8 @@ function touchEnd(e) {
     if (dropTarget && dropTarget.id === 'answer-box') {
         handleDrop(draggedCard.id);
     } else {
-        // Reset the card's position
-        draggedCard.style.position = 'static';
+        // Reset the card's position and styles
+        draggedCard.style.position = '';
         draggedCard.style.left = '';
         draggedCard.style.top = '';
     }
@@ -141,8 +146,8 @@ function touchEnd(e) {
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.id);
     const rect = e.target.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
+    offsetX = e.clientX - (rect.left + rect.width / 2);
+    offsetY = e.clientY - (rect.top + rect.height / 2);
 }
 
 function handleDrop(cardId) {
