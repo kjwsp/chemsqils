@@ -1,11 +1,124 @@
 * {box-sizing: border-box;}
+/*default MacBook Air Media Query for min-width:*/
 
 body { 
   background-image: url(assets/Menu.png);
-  background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
+  background-size: 100% auto; 
   background-repeat: no-repeat;
   margin: 0;
   font-family: "Montserrat",sans-serif;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 65px;
+  background-color: #405059;
+  color: white;
+}
+
+div.buttonstart {
+  position: fixed;
+  left: 53px;
+  top: 175px;
+}
+
+div.buttonload {
+  position: fixed;
+  left: 324px;
+  top: 249px;
+}
+
+div.buttonhelp {
+position: fixed;
+left: 161px;
+top: 458px;
+}
+
+.buttonstart img
+{ 
+  height: 270px;
+  width: 270px;
+}
+
+.buttonload img
+{
+  height: 270px;
+  width: 270px;
+}
+
+.buttonhelp img
+{
+  height: 200px;
+  width: 200px;
+}
+
+
+
+/* else Media*/
+@media only screen and (max-height: 770px) 
+{
+body { 
+ 
+    background-image: url(assets/Menu2.png);
+    background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: "Montserrat",sans-serif;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top bottom;
+}
+
+div.buttonstart {
+  position: fixed;
+  left: 143px;
+  top: 125px;
+  
+}
+
+div.buttonload {
+position: fixed;
+
+left: 314px;
+top: 200px;
+}
+
+div.buttonhelp {
+position: fixed;
+left: 200px;
+top: 310px;
+}
+
+.buttonstart img
+{ display: flex;
+height: auto;
+max-width: 65%;
+}
+
+.buttonload img
+{
+height: auto;
+max-width: 65%;
+}
+
+.buttonhelp img
+{
+height: auto;
+max-width: 58%;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  background-color: #405059;
+  color: white;
+}
 }
 
 .header {
@@ -40,6 +153,9 @@ body {
   float: right;
 }
 
+
+
+/*tablet atau HP*/
 @media screen and (max-width: 500px) {
   .header a {
     float: none;
@@ -52,33 +168,8 @@ body {
   }
 }
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 65px;
-    background-color: #405059;
-    color: white;
-}
 
-div.buttonstart {
-    position: fixed;
-    left: 53px;
-    top: 175px;
-}
 
-div.buttonload {
-  position: fixed;
-  left: 324px;
-  top: 249px;
-}
-
-div.buttonhelp {
-  position: fixed;
-  left: 161px;
-  top: 458px;
-}
 
 div.buttonbackhome1 {
   position: fixed;
