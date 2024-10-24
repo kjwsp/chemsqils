@@ -7,6 +7,8 @@ body {
   background-repeat: no-repeat;
   margin: 0;
   font-family: "Montserrat",sans-serif;
+  background-attachment: fixed;
+  background-position: center center;
 }
 
 .footer {
@@ -61,7 +63,6 @@ top: 458px;
 @media only screen and (max-height: 770px) 
 {
 body { 
- 
     background-image: url(assets/Menu2.png);
     background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
     background-repeat: no-repeat;
