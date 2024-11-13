@@ -132,43 +132,40 @@
     <section class="wrapper">
       <div class="form signup">
         <header>Signup</header>
-        <form action="#">
-          <input type="text" placeholder="Full name" required />
-          <input type="text" placeholder="Email address" required />
-          <input type="password" placeholder="Password" required />
+        <form id="signup-form">
+          <input type="text" id="signup-name" placeholder="Full name" required />
+          <input type="email" id="signup-email" placeholder="Email address" required />
+          <input type="password" id="signup-password" placeholder="Password" required />
           <div class="checkbox">
             <input type="checkbox" id="signupCheck" />
             <label for="signupCheck">I accept all terms & conditions</label>
           </div>
-          <input type="submit" value="Signup" />
+          <input type="submit" value="Signup" id="submit-signup"/>
         </form>
       </div>
-
+      
       <div class="form login">
         <header>Login</header>
-        <form action="#">
-          <input type="text" placeholder="Email address" required />
-          <input type="password" placeholder="Password" required />
+        <form id="login-form">
+          <input type="email" id="login-email" placeholder="Email address" required />
+          <input type="password" id="login-password" placeholder="Password" required />
           <a href="#">Forgot password?</a>
-          <input type="submit" value="Login" />
+          <input type="submit" value="Login" id="submit-login"/>
         </form>
-      </div>
+      </div>      
 
     <script type="module" src="firebase-init.js"></script>
-
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const wrapper = document.querySelector(".wrapper"),
-          signupHeader = document.querySelector(".signup header"),
-          loginHeader = document.querySelector(".login header");
-
-        loginHeader.addEventListener("click", () => {
-          wrapper.classList.add("active");
-        });
-        signupHeader.addEventListener("click", () => {
-          wrapper.classList.remove("active");
-        });
+      const wrapper = document.querySelector(".wrapper"),
+        signupHeader = document.querySelector(".signup header"),
+        loginHeader = document.querySelector(".login header");
+      loginHeader.addEventListener("click", () => {
+        wrapper.classList.add("active");
+      });
+      signupHeader.addEventListener("click", () => {
+        wrapper.classList.remove("active");
       });
     </script>
-  </body>
+  </section>
+</body>
 </html>
