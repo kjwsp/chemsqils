@@ -23,23 +23,54 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
+let buttonSignup = document.getElementById("submit-signup");
+//let buttonLogin = document.getElementById("submit-login");
+
+buttonSignup.addEventListener("click", (e)=>{
+  let name = document.getElementById("signup-name").value;
+  let emailSignup = document.getElementById("signup-email").value;
+  let passwordSignup = document.getElementById("signup-password").value;
+
+  createUserWithEmailAndPassword(auth, emailSignup, passwordSignup)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      set(ref(database, "users/" + user.uid),{
+        name: name,
+        email: emailSignup,
+        password: passwordSignup
+      })
+        .then(()=>{
+          alert("User Telah Ditambahkan");
+        })
+        .catch((error)=>{
+          alert(error);
+        })
+    })
+
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
+});
+
 // let buttonSignup = document.getElementById("submit-signup");
 // let buttonSignin = document.getElementById("submit-login");
 
 // Signup form event
-document.getElementById("signup-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = document.getElementById("signup-name").value;
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
+// document.getElementById("signup-form").addEventListener("submit", async (e) => {
+//     e.preventDefault();
+//     const name = document.getElementById("signup-name").value;
+//     const email = document.getElementById("signup-email").value;
+//     const password = document.getElementById("signup-password").value;
     
-    try {
-      await signupUser(name, email, password);
-      alert("Signup successful!");
-    } catch (error) {
-      alert(`Signup failed: ${error.message}`);
-    }
-  });
+//     try {
+//       await signupUser(name, email, password);
+//       alert("Signup successful!");
+//     } catch (error) {
+//       alert(`Signup failed: ${error.message}`);
+//     }
+//   });
 
 
 // buttonSignin.addEventListener("click", (e) => {
