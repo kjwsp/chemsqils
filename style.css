@@ -1,4 +1,9 @@
-* {box-sizing: border-box;}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
 /*default MacBook Air Media Query for min-width:*/
 
 body { 
@@ -252,6 +257,7 @@ canvas {
   width: 100vw;
   height: 100vh;
 }
+
 
 /* start media selain macBox 770px*/
 /* else Media*/

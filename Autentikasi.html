@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Head content seperti sebelumnya -->
+    <title>CHEMSQILS</title>
+    <style>
+      /* CSS content seperti sebelumnya */
+    </style>
+  </head>
+  <body>
+    <section class="wrapper">
+      <!-- Form content seperti sebelumnya -->
+    </section>
+
+    <!-- Link ke Firebase init -->
+    <script type="module" src="firebase-init.js"></script>
+
+    <!-- Script tambahan -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const wrapper = document.querySelector(".wrapper"),
+          signupHeader = document.querySelector(".signup header"),
+          loginHeader = document.querySelector(".login header");
+
+        loginHeader.addEventListener("click", () => {
+          wrapper.classList.add("active");
+        });
+        signupHeader.addEventListener("click", () => {
+          wrapper.classList.remove("active");
+        });
+      });
+    </script>
+  </body>
+</html>
