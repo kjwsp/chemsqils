@@ -37,7 +37,7 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
       await signupUser(name, email, password);
       alert("Signup successful!");
     } catch (error) {
-      alert ('Signup failed: ${error.message}');
+      alert(`Signup failed: ${error.message}`);
     }
   });
 
