@@ -29,11 +29,12 @@ const database = getDatabase(app);
 // Signup form event
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
     e.preventDefault();
+    const name = document.getElementById("signup-name").value;
     const email = document.getElementById("signup-email").value;
     const password = document.getElementById("signup-password").value;
     
     try {
-      await signupUser(email, password);
+      await signupUser(name, email, password);
       alert("Signup successful!");
     } catch (error) {
       alert ('Signup failed: ${error.message}');
@@ -41,32 +42,32 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
   });
 
 
-buttonSignin.addEventListener("click", (e) => {
-    let emailSignin = document.getElementById("email_signin").value;
-    let passwordSignin = document.getElementById("psw_signin").value;
-    signInWithEmailAndPassword(auth, emailSignin, passwordSignin)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        let lgDate = new Date();
-        update(ref(database, "users/" + user.uid), {
-          last_login: lgDate
-        })
-          .then(() => {
-            // Data saved successfully!
-            alert("user telah sukses login");
-          })
-          .catch((error) => {
-            //the write failed
-            alert(error);
-          });
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-      });
-    signOut(auth)
-      .then(() => {})
-      .catch((error) => {});
-  });
+// buttonSignin.addEventListener("click", (e) => {
+//     let emailSignin = document.getElementById("email_signin").value;
+//     let passwordSignin = document.getElementById("psw_signin").value;
+//     signInWithEmailAndPassword(auth, emailSignin, passwordSignin)
+//       .then((userCredential) => {
+//         // Signed in
+//         const user = userCredential.user;
+//         let lgDate = new Date();
+//         update(ref(database, "users/" + user.uid), {
+//           last_login: lgDate
+//         })
+//           .then(() => {
+//             // Data saved successfully!
+//             alert("user telah sukses login");
+//           })
+//           .catch((error) => {
+//             //the write failed
+//             alert(error);
+//           });
+//       })
+//       .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         alert(errorMessage);
+//       });
+//     signOut(auth)
+//       .then(() => {})
+//       .catch((error) => {});
+//   });
