@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       console.log("Pengguna belum login");
       authLink.href = "Autentikasi.html";
-      authLink.innerHTML = '<img src="assets/buttonLogin.png" width="200" height="32" alt="Login">';
+      authLink.innerHTML = '<img src="assets/ButtonLogin.png" width="200" height="32" alt="Login">';
     }
   });
 
