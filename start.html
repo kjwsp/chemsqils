@@ -10,7 +10,7 @@
     <div class="header">
     <a class="logo"><img src="assets/LOGO.png" width="175" height="28"></a>
       <div class="header-right">
-        <a><img src="assets/PROFILE.png" width="33" height="33"></a>
+        <a id="auth-link"></a>
       </div>
     </div>
     <header>
@@ -37,12 +37,17 @@
         <div class="card card-2" id="card2" draggable="true"></div>
         <div class="card card-3" id="card3" draggable="true"></div>
     </div>
-    <script>
+
+    <script type="module" src="games.js"></script>
+    <script type="module" src="firebase-init.js"></script>
+    <script type="module">
+      import { startLevel } from './games.js';
+
       function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
       }
-      
+
       document.addEventListener('DOMContentLoaded', () => {
         const levelFromUrl = parseInt(getQueryParam('level')) || 1;
         console.log("Level from URL:", levelFromUrl);
@@ -56,7 +61,5 @@
         startLevel(levelFromUrl - 1);
       });
     </script>
-
-    <script src="games.js"></script>
 </body>
 </html>

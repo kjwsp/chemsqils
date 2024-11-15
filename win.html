@@ -15,13 +15,59 @@
         <!-- Tautan next level akan disesuaikan dengan level berikutnya -->
         <a id="next-level-link"><img src="assets/nextlevel.png" width="250" height="40"></a>
     </div>
-    <script>
+    <script type="module" src="firebase-init.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyAcjBwmLaQKa_M5lfD5GEbHEpo92SBMhnc",
+        authDomain: "chemsqils.firebaseapp.com",
+        projectId: "chemsqils",
+        storageBucket: "chemsqils.firebasestorage.app",
+        messagingSenderId: "18672723663",
+        appId: "1:18672723663:web:47e4c8e5d65bd5575579ba",
+        measurementId: "G-2FLW92DPSY"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+
+        async function saveProgress(level) {
+            const user = auth.currentUser;
+            if (user) {
+                try {
+                    await setDoc(doc(firestore, 'users', user.uid), { level: level }, { merge: true });
+                    console.log("Progress saved successfully");
+                } catch (error) {
+                    console.error("Error saving progress:", error);
+                }
+            } else {
+                console.error("User not authenticated");
+            }
+        }
+
         const urlParams = new URLSearchParams(window.location.search);
         const nextLevel = parseInt(urlParams.get('nextLevel')) || 1;
         console.log("Next level on win page:", nextLevel);
         const nextLevelLink = document.getElementById("next-level-link");
         nextLevelLink.href = `start.html?level=${nextLevel}`;
         console.log("Next level link:", nextLevelLink.href);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User authenticated with UID:", user.uid);
+                // Save progress only if the user is authenticated
+                saveProgress(nextLevel - 1);
+            } else {
+                console.error("User not authenticated");
+                // Optionally, you can redirect to the login page if the user is not authenticated
+                window.location.href = "login.html";
+            }
+        });
     </script>
 </body>
 </html>

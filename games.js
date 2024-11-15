@@ -1,3 +1,23 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAcjBwmLaQKa_M5lfD5GEbHEpo92SBMhnc",
+  authDomain: "chemsqils.firebaseapp.com",
+  projectId: "chemsqils",
+  storageBucket: "chemsqils.firebasestorage.app",
+  messagingSenderId: "18672723663",
+  appId: "1:18672723663:web:47e4c8e5d65bd5575579ba",
+  measurementId: "G-2FLW92DPSY"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
+
 const levels = [
     { 
         level: 1, 
@@ -220,6 +240,22 @@ function startTimer() {
     timerInterval = setInterval(updateTimer, 1000);
 }
 
+async function saveProgress() {
+    const user = auth.currentUser;
+    if (!user) {
+        console.error("No authenticated user found.");
+        return;
+    }
+    console.log("User UID:", user.uid);
+    console.log("Level:", currentLevel + 1);
+    try {
+        await setDoc(doc(firestore, 'users', user.uid), { level: Number(currentLevel + 1) }, { merge: true });
+        console.log("Progress saved successfully");
+    } catch (error) {
+        console.error("Error saving progress:", error);
+    }
+}
+
 function checkAnswer(cardId) {
     console.log("Checking answer. Current level:", currentLevel, "Current question:", currentQuestionIndex);
     const correctCard = levels[currentLevel].questions[currentQuestionIndex].correctCard;
@@ -247,7 +283,7 @@ function checkAnswer(cardId) {
     }
 }
 
-function startLevel(levelIndex) {
+export function startLevel(levelIndex) {
     console.log("Starting level:", levelIndex);
     currentLevel = levelIndex;
     currentQuestionIndex = 0;

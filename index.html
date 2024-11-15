@@ -6,11 +6,11 @@
   <title>CHEMSQILS</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bodyhome">
     <div class="header">
     <a class="logo"><img src="assets/LOGO.png" width="175" height="28"></a>
       <div class="header-right">
-        <a href="Autentikasi.html"><img src="assets/PROFILE.png" width="35" height="35"></a>
+        <a id="auth-link"></a>
       </div>
     </div>
 
@@ -28,5 +28,53 @@
     <div class="buttonhelp">
       <a href="help.html"><img src="assets/HELP.png" width="200" height="200"></a>
     </div>
+
+    <script type="module" src="firebase-init.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAcjBwmLaQKa_M5lfD5GEbHEpo92SBMhnc",
+        authDomain: "chemsqils.firebaseapp.com",
+        projectId: "chemsqils",
+        storageBucket: "chemsqils.firebasestorage.app",
+        messagingSenderId: "18672723663",
+        appId: "1:18672723663:web:47e4c8e5d65bd5575579ba",
+        measurementId: "G-2FLW92DPSY"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const firestore = getFirestore(app);
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        const loadButton = document.getElementById("load-button");
+
+        loadButton.addEventListener("click", async (event) => {
+          event.preventDefault(); // Prevent default link behavior
+
+          // Fetch the saved level from Firestore
+          const user = auth.currentUser;
+          if (user) {
+            const userDoc = await getDoc(doc(firestore, 'users', user.uid));
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              const savedLevel = userData.level || 1; // Default to level 1 if no saved level
+              window.location.href = `start.html?level=${savedLevel}`;
+            } else {
+              alert("No saved progress found.");
+              window.location.href = "start.html?level=1";
+            }
+          } else {
+            alert("Please log in to load your game progress.");
+            window.location.href = "Autentikasi.html";
+          }
+        });
+      });
+    </script>
 </body>
 </html>
