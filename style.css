@@ -7,13 +7,21 @@
 /*default MacBook Air Media Query for min-width:*/
 
 body { 
-  background-image: url(assets/Menu.png);
+  background-color:#fff;
   background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
   background-repeat: no-repeat;
   margin: 0;
   font-family: "Montserrat",sans-serif;
   background-attachment: fixed;
   background-position: top bottom;
+}
+
+.bodyhome {
+  background-image: url(assets/Menu.png);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  margin: 0;
+  font-family: "Montserrat",sans-serif; 
 }
 
 .footer {
@@ -258,13 +266,83 @@ canvas {
   height: 100vh;
 }
 
+.h1_profile {
+  position:fixed;
+  left:508px;
+  top:200px;
+  color:#FFAD08;
+  font-size:96px; 
+}
 
+.bodyprofile {
+  background-color: #fff;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  margin: 0;
+  font-family: "Montserrat",sans-serif; 
+}
+
+div.bigprofile {
+  position: fixed;
+  left: 110px;
+  top: 266px;
+}
+
+.bigprofile img
+{
+  height: 300px;
+  width: 300px;
+}
+
+.email-container {
+  width: 630px;
+  height: 80px;
+  position: absolute;
+  background-color: #FFAD08;
+  left: 508px;
+  top: 333px; 
+  padding: 30px;
+  border-radius: 25px;
+}
+
+.email-container h3 {
+  color: #333;
+  font-weight: lighter;
+}
+
+.level-container {
+  width: 630px;
+  height: 80px;
+  position: absolute;
+  background-color: #EDD75A;
+  left: 508px;
+  top: 424px; 
+  padding: 30px;
+  border-radius: 25px;
+}
+
+.level-container h3 {
+  color: #333;
+  font-weight: lighter;
+}
+
+div.buttonlogout {
+  position: fixed;
+  left: 508px;
+  top: 517px;
+  cursor: pointer;
+}
+
+.buttonlogout img
+{
+  width: 630px;
+  height: 80px;
+}
 /* start media selain macBox 770px*/
 /* else Media*/
 @media only screen and (max-height: 770px)
 {
 body { 
- 
     background-image: url(assets/Menu2.png);
     background-size: 100% auto; /* Lebar penuh, tinggi otomatis sesuai rasio */
     background-repeat: no-repeat;
@@ -284,7 +362,6 @@ div.buttonstart {
 
 div.buttonload {
 position: fixed;
-
 left: 314px;
 top: 200px;
 }
@@ -322,8 +399,6 @@ max-width: 58%;
   background-color: #405059;
   color: white;
 }
-
-
 
   .bodystart {
     background-image: url(assets/TIMER2.png);
